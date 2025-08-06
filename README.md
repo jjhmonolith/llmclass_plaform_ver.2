@@ -52,8 +52,8 @@
 
 1. **저장소 클론**
    ```bash
-   git clone <repository-url>
-   cd llmclass_platform/platform_ver.2
+   git clone https://github.com/jjhmonolith/llmclass_plaform_ver.2.git
+   cd llmclass_plaform_ver.2
    ```
 
 2. **백엔드 설정**
@@ -62,7 +62,7 @@
    pip install -r requirements.txt
    
    # 환경변수 설정
-   cp .env.example .env
+   cp .env.sample .env
    # .env 파일에서 OpenAI API 키 등 설정
    
    # 데이터베이스 초기화
@@ -77,9 +77,8 @@
    cd prototypes/proto4/backend
    pip install -r requirements.txt
    
-   # 환경변수 설정
-   cp .env.example .env
-   # OpenAI API 키 설정
+   # 환경변수 설정 (OpenAI API 키 필요)
+   echo "OPENAI_API_KEY=your-api-key" > .env
    
    # 서버 시작
    python -m uvicorn main:app --reload --port 3001
@@ -97,7 +96,7 @@
 1. **환경 설정**
    ```bash
    # 프로덕션 환경변수 설정
-   cp .env.production.example .env.production
+   cp .env.sample .env.production
    # 실제 도메인, API 키 등 설정
    ```
 
