@@ -68,7 +68,11 @@ class Settings(BaseSettings):
         """CORS 허용 오리진 리스트"""
         if self.is_production:
             # 프로덕션에서는 특정 도메인만 허용
-            return ["https://your-domain.com", "https://www.your-domain.com"]
+            return [
+                "https://llmclass.org",
+                "https://www.llmclass.org", 
+                "https://teacher.llmclass.org"
+            ]
         return [origin.strip() for origin in self.cors_origins.split(",")]
     
     @property

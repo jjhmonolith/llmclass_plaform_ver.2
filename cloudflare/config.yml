@@ -1,0 +1,32 @@
+tunnel: llm-classroom-platform
+credentials-file: /root/.cloudflared/credentials.json
+
+# 도메인별 라우팅 설정
+ingress:
+  # 교사용 도메인
+  - hostname: teacher.llmclass.org
+    service: http://localhost:80
+    originRequest:
+      httpHostHeader: teacher.llmclass.org
+      
+  # 학생용 메인 도메인  
+  - hostname: llmclass.org
+    service: http://localhost:80
+    originRequest:
+      httpHostHeader: llmclass.org
+      
+  # www 서브도메인
+  - hostname: www.llmclass.org
+    service: http://localhost:80
+    originRequest:
+      httpHostHeader: www.llmclass.org
+      
+  # 기본 fallback (404)
+  - service: http_status:404
+
+# 연결 설정
+warp-routing:
+  enabled: false
+
+# 로그 설정  
+loglevel: info
