@@ -1,0 +1,404 @@
+/* 플랫폼 연동을 위한 추가 스타일 */
+
+/* 헤더 확장 - 기존 CSS 덮어쓰기 */
+.topic-info {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    max-width: 1200px;
+    margin: 0 auto;
+    gap: 20px;
+    height: 100%;
+    flex-wrap: nowrap;
+}
+
+.topic-main {
+    flex: 1;
+    min-width: 0; /* flexbox truncation을 위해 */
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 12px;
+}
+
+.topic-main h1 {
+    font-size: 1.4rem !important;
+    font-weight: 600 !important;
+    margin: 0 !important;
+    text-align: left !important;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    flex: none !important;
+    line-height: 1.2;
+}
+
+.session-info {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+    margin: 0;
+    min-height: 0;
+}
+
+.session-info .separator {
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 0.9rem;
+}
+
+.session-name {
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.9);
+    font-weight: 500;
+    line-height: 1.2;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.template-name {
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.7);
+    line-height: 1.2;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* 헤더 컨트롤 */
+.header-controls {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+    height: 100%;
+}
+
+.student-info {
+    display: flex;
+    align-items: center;
+    height: 100%;
+}
+
+.student-name {
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.95);
+    font-weight: 500;
+    background: rgba(255,255,255,0.15);
+    padding: 8px 16px;
+    border-radius: 20px;
+    backdrop-filter: blur(10px);
+    white-space: nowrap;
+    line-height: 1.2;
+}
+
+.pin-btn {
+    background: rgba(255,255,255,0.2);
+    color: white;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    transition: background 0.2s ease;
+    backdrop-filter: blur(10px);
+    font-weight: 500;
+    white-space: nowrap;
+    line-height: 1.2;
+    height: fit-content;
+}
+
+.pin-btn:hover {
+    background: rgba(255,255,255,0.3);
+}
+
+.exit-btn {
+    background: rgba(220, 53, 69, 0.8);
+    color: white;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    transition: background 0.2s ease;
+    backdrop-filter: blur(10px);
+    font-weight: 500;
+    white-space: nowrap;
+    line-height: 1.2;
+    height: fit-content;
+}
+
+.exit-btn:hover {
+    background: rgba(220, 53, 69, 1);
+}
+
+/* 세션 종료 상태 */
+.chat-container.session-ended .input-section,
+.chat-container.session-ended .input-section-mobile {
+    opacity: 0.3;
+    pointer-events: none;
+}
+
+.chat-container.session-ended .input-section textarea,
+.chat-container.session-ended .input-section-mobile textarea,
+.chat-container.session-ended .input-section button,
+.chat-container.session-ended .input-section-mobile button {
+    background-color: #f5f5f5 !important;
+    color: #999 !important;
+    cursor: not-allowed !important;
+    border-color: #ddd !important;
+}
+
+.chat-container.session-ended .input-section textarea::placeholder,
+.chat-container.session-ended .input-section-mobile textarea::placeholder {
+    color: #bbb !important;
+}
+
+/* 세션 종료 배너 */
+.session-ended-banner {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(135deg, #dc3545, #c82333);
+    color: white;
+    text-align: center;
+    padding: 8px 15px;
+    z-index: 999;
+    font-size: 14px;
+    font-weight: 500;
+    box-shadow: 0 2px 10px rgba(220, 53, 69, 0.3);
+}
+
+.session-ended-banner .banner-text {
+    margin: 0;
+}
+
+.chat-container.session-ended {
+    margin-top: 40px; /* 배너 공간 확보 */
+}
+
+/* 세션 종료 오버레이 */
+.session-ended-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    backdrop-filter: blur(5px);
+}
+
+.session-ended-modal {
+    background: white;
+    border-radius: 15px;
+    padding: 40px;
+    text-align: center;
+    max-width: 500px;
+    margin: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.session-ended-modal h2 {
+    color: #721c24;
+    margin-bottom: 15px;
+    font-size: 24px;
+}
+
+.session-ended-modal p {
+    color: #666;
+    margin-bottom: 20px;
+    line-height: 1.5;
+}
+
+.session-ended-modal .modal-actions {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.session-ended-modal button {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 500;
+    transition: background 0.2s ease;
+}
+
+.session-ended-modal .primary-btn {
+    background: #007bff;
+    color: white;
+}
+
+.session-ended-modal .primary-btn:hover {
+    background: #0056b3;
+}
+
+.session-ended-modal .secondary-btn {
+    background: #6c757d;
+    color: white;
+}
+
+.session-ended-modal .secondary-btn:hover {
+    background: #545b62;
+}
+
+/* PIN 모달 */
+.pin-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.pin-modal-content {
+    background: white;
+    border-radius: 12px;
+    padding: 30px;
+    text-align: center;
+    max-width: 400px;
+    margin: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.pin-modal h3 {
+    color: #333;
+    margin-bottom: 15px;
+    font-size: 20px;
+}
+
+.pin-display {
+    background: #f8f9fa;
+    border: 2px solid #dee2e6;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 15px 0;
+    font-size: 24px;
+    font-weight: bold;
+    color: #007bff;
+    letter-spacing: 2px;
+}
+
+.pin-description {
+    color: #666;
+    font-size: 14px;
+    margin-bottom: 20px;
+    line-height: 1.4;
+}
+
+.pin-modal button {
+    background: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.pin-modal button:hover {
+    background: #0056b3;
+}
+
+/* 중간 화면 크기 조정 */
+@media (max-width: 1024px) and (min-width: 769px) {
+    .topic-main h1 {
+        font-size: 1.2rem !important;
+    }
+    
+    .session-name {
+        font-size: 0.75rem;
+    }
+    
+    .template-name {
+        font-size: 0.65rem;
+    }
+    
+    .header-controls {
+        gap: 6px;
+    }
+    
+    .student-name {
+        font-size: 0.75rem;
+        padding: 4px 8px;
+    }
+    
+    .pin-btn, .exit-btn {
+        font-size: 0.7rem;
+        padding: 5px 8px;
+    }
+}
+
+/* 모바일 반응형 */
+@media (max-width: 768px) {
+    .chat-header {
+        padding: 8px 15px;
+        height: auto;
+        min-height: var(--header-height);
+    }
+    
+    .topic-info {
+        flex-direction: column !important;
+        gap: 8px;
+        align-items: stretch;
+    }
+    
+    .topic-main {
+        text-align: center;
+        order: 1;
+        flex-direction: column;
+        gap: 8px;
+    }
+    
+    .topic-main h1 {
+        font-size: 1.1rem !important;
+        text-align: center !important;
+        white-space: normal;
+    }
+    
+    .session-info {
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+    }
+    
+    .session-name {
+        font-size: 0.75rem;
+    }
+    
+    .template-name {
+        font-size: 0.65rem;
+    }
+    
+    .header-controls {
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 6px;
+        order: 2;
+        height: auto;
+    }
+    
+    .student-name {
+        font-size: 0.75rem;
+        padding: 3px 8px;
+    }
+    
+    .pin-btn, .exit-btn {
+        font-size: 0.7rem;
+        padding: 5px 8px;
+    }
+}

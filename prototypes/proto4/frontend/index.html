@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LLM Classroom Proto4 - 소크라테스식 학습</title>
+    <link rel="stylesheet" href="static/css/main.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🏛️ 소크라테스 아카데미</h1>
+        </header>
+        
+        <main>
+            <div class="welcome-section">
+                <h2>학습 주제를 입력해주세요</h2>
+                <p>궁금한 주제나 배우고 싶은 내용을 자유롭게 입력하세요.</p>
+                
+                <form id="topicForm" class="topic-form">
+                    <div class="input-group">
+                        <label for="topicInput">학습 주제:</label>
+                        <textarea 
+                            id="topicInput" 
+                            name="topic"
+                            placeholder="예: 유니버설 디자인의 개념과 실생활 적용 사례"
+                            rows="4"
+                            required
+                        ></textarea>
+                    </div>
+                    
+                    <div class="content-type-group">
+                        <label>입력 방식</label>
+                        <div class="segment-control" data-name="contentType">
+                            <input type="radio" id="text" name="contentType" value="text" checked>
+                            <label for="text" class="segment-option">
+                                <span class="segment-icon">📝</span>
+                                <span class="segment-text">텍스트</span>
+                            </label>
+                            
+                            <input type="radio" id="pdf" name="contentType" value="pdf" disabled>
+                            <label for="pdf" class="segment-option disabled">
+                                <span class="segment-icon">📄</span>
+                                <span class="segment-text">PDF</span>
+                            </label>
+                            
+                            <input type="radio" id="url" name="contentType" value="url" disabled>
+                            <label for="url" class="segment-option disabled">
+                                <span class="segment-icon">🔗</span>
+                                <span class="segment-text">링크</span>
+                            </label>
+                        </div>
+                        <p class="segment-description">텍스트로 직접 입력하거나 향후 PDF 파일, 웹 링크도 지원 예정입니다.</p>
+                    </div>
+                    
+                    <div class="difficulty-group">
+                        <label>학습 난이도</label>
+                        <div class="segment-control" data-name="difficulty">
+                            <input type="radio" id="easy" name="difficulty" value="easy">
+                            <label for="easy" class="segment-option">
+                                <span class="segment-icon">🌱</span>
+                                <span class="segment-text">쉬움</span>
+                            </label>
+                            
+                            <input type="radio" id="normal" name="difficulty" value="normal" checked>
+                            <label for="normal" class="segment-option">
+                                <span class="segment-icon">📚</span>
+                                <span class="segment-text">보통</span>
+                            </label>
+                            
+                            <input type="radio" id="hard" name="difficulty" value="hard">
+                            <label for="hard" class="segment-option">
+                                <span class="segment-icon">🎓</span>
+                                <span class="segment-text">어려움</span>
+                            </label>
+                        </div>
+                        <p class="segment-description">
+                            <strong>쉬움:</strong> 기본 개념 위주 &nbsp;|&nbsp; 
+                            <strong>보통:</strong> 중학생 수준 &nbsp;|&nbsp; 
+                            <strong>어려움:</strong> 깊이 있는 탐구
+                        </p>
+                    </div>
+                    
+                    <div class="score-display-group">
+                        <label>학습 진행도</label>
+                        <div class="segment-control" data-name="scoreDisplay">
+                            <input type="radio" id="showScore" name="scoreDisplay" value="show" checked>
+                            <label for="showScore" class="segment-option">
+                                <span class="segment-icon">📊</span>
+                                <span class="segment-text">점수 보기</span>
+                            </label>
+                            
+                            <input type="radio" id="hideScore" name="scoreDisplay" value="hide">
+                            <label for="hideScore" class="segment-option">
+                                <span class="segment-icon">🎯</span>
+                                <span class="segment-text">점수 숨김</span>
+                            </label>
+                        </div>
+                        <p class="segment-description">
+                            <strong>점수 보기:</strong> 실시간 진행률과 동기부여 &nbsp;|&nbsp; 
+                            <strong>점수 숨김:</strong> 순수한 탐구에 집중
+                        </p>
+                    </div>
+                    
+                    <button type="submit" class="start-btn">
+                        🚀 학습 시작하기
+                    </button>
+                </form>
+            </div>
+            
+            <div class="info-section">
+                <h3>💡 소크라테스식 학습이란?</h3>
+                <div class="info-cards">
+                    <div class="info-card">
+                        <h4>🤔 질문을 통한 탐구</h4>
+                        <p>직접적인 답변 대신 질문을 통해 스스로 생각하도록 유도합니다.</p>
+                    </div>
+                    <div class="info-card">
+                        <h4>🧠 비판적 사고 개발</h4>
+                        <p>단계적 질문으로 깊이 있는 사고력을 기릅니다.</p>
+                    </div>
+                    <div class="info-card">
+                        <h4>📈 점진적 이해</h4>
+                        <p>이해도를 실시간으로 측정하며 맞춤형 학습을 제공합니다.</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+        
+        <div id="loading" class="loading-overlay" style="display: none;">
+            <div class="loading-content">
+                <div class="spinner"></div>
+                <p>학습 환경을 준비하고 있습니다...</p>
+            </div>
+        </div>
+    </div>
+    
+    <script src="static/js/main.js"></script>
+</body>
+</html>

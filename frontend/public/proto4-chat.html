@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>소크라테스식 대화 - LLM Classroom</title>
+    <link rel="stylesheet" href="/proto4/css/chat.css">
+    <link rel="stylesheet" href="/proto4/css/chat-platform.css">
+</head>
+<body>
+    <div class="chat-container">
+        <header class="chat-header">
+            <div class="topic-info">
+                <div class="topic-main">
+                    <h1>🏛️ <span id="topicTitle">학습 주제</span></h1>
+                    <div class="session-info">
+                        <span class="separator">|</span>
+                        <span id="sessionName" class="session-name"></span>
+                        <span class="separator">·</span>
+                        <span id="templateName" class="template-name"></span>
+                    </div>
+                </div>
+                <div class="header-controls">
+                    <div class="student-info">
+                        <span id="studentNameDisplay" class="student-name">👤 학생</span>
+                    </div>
+                    <button id="pinBtn" class="pin-btn" style="display: none;">🔐 PIN</button>
+                    <button id="exitBtn" class="exit-btn">🚪 학습 종료</button>
+                </div>
+            </div>
+        </header>
+        
+        <main class="chat-main">
+            <div class="chat-section">
+                <div class="messages-container" id="messagesContainer">
+                    <div id="loadingMessage" class="loading-message">
+                        <div class="loading-spinner"></div>
+                        <p>AI 튜터가 첫 질문을 준비하고 있습니다...</p>
+                    </div>
+                </div>
+                
+                <!-- 데스크톱용 입력창 -->
+                <div class="input-section">
+                    <form id="chatForm" class="chat-form">
+                        <div class="input-group">
+                            <textarea 
+                                id="messageInput"
+                                placeholder="생각을 자유롭게 입력해주세요..."
+                                rows="3"
+                                disabled
+                            ></textarea>
+                            <button type="submit" id="sendBtn" disabled>
+                                📤 전송
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            
+            <!-- 모바일용 독립 입력창 -->
+            <div class="input-section-mobile" id="inputSectionMobile">
+                <form id="chatFormMobile" class="chat-form">
+                    <textarea 
+                        id="messageInputMobile"
+                        placeholder="생각을 자유롭게 입력해주세요..."
+                        rows="2"
+                        disabled
+                    ></textarea>
+                    <button type="submit" id="sendBtnMobile" disabled>
+                        📤
+                    </button>
+                </form>
+            </div>
+            
+            <!-- 핸들을 위한 고정 배경 영역 -->
+            <div class="drawer-handle-fixed-area"></div>
+            
+            <!-- 하단 드로어로 변경된 진행률 섹션 -->
+            <div class="progress-section" id="scoreDrawer">
+                <div class="drawer-handle-area" id="drawerHandleArea">
+                    <div class="drawer-handle"></div>
+                </div>
+                
+                <div class="drawer-content">
+                    <div class="understanding-gauge">
+                        <div class="gauge-container">
+                            <div class="gauge-background">
+                                <div class="gauge-fill" id="gaugeFill" style="width: 0%"></div>
+                            </div>
+                            <div class="gauge-text">
+                                <span id="scoreText">0</span>%
+                            </div>
+                        </div>
+                        <div class="progress-feedback" id="progressFeedback">
+                            학습을 시작해보세요!
+                        </div>
+                    </div>
+                    
+                    <div class="completion-celebration" id="completionCelebration" style="display: none;">
+                        <div class="celebration-content">
+                            <h2>🎉 축하합니다!</h2>
+                            <p>완벽한 이해에 도달했습니다!</p>
+                            <div class="celebration-animation">🌟✨🎊</div>
+                            <p class="continue-text">계속해서 더 깊이 탐구해보세요!</p>
+                        </div>
+                    </div>
+                    
+                    <div class="learning-tips">
+                        <h4>💡 소크라테스식 대화 팁</h4>
+                        <ul>
+                            <li>의견과 그 근거를 함께 말해보세요</li>
+                            <li>막히면 "모르겠어요"라고 솔직히 말해보세요</li>
+                            <li>AI의 질문에 질문으로 답해도 좋아요</li>
+                            <li>틀려도 괜찮아요, 탐구 과정이 중요합니다</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    
+    <script>
+        // 플랫폼 연동을 위한 설정 주입
+        window.PLATFORM_CONFIG = {
+            runId: null,
+            studentName: null,
+            activityToken: null,
+            settings: null,
+            apiBase: 'http://localhost:3001/api/v1', // Proto4 API
+            platformApiBase: '/api' // 플랫폼 API
+        };
+        
+        // URL 파라미터에서 설정 읽기
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.get('config')) {
+            try {
+                const config = JSON.parse(decodeURIComponent(urlParams.get('config')));
+                Object.assign(window.PLATFORM_CONFIG, config);
+                console.log('Platform config loaded:', window.PLATFORM_CONFIG);
+            } catch (error) {
+                console.error('Failed to parse platform config:', error);
+            }
+        }
+        
+        // 부모 창으로 메시지 전송 (iframe인 경우)
+        window.sendToPlatform = function(type, data) {
+            if (window.parent && window.parent !== window) {
+                window.parent.postMessage({
+                    type: type,
+                    data: data,
+                    source: 'proto4-chat'
+                }, '*');
+            }
+        };
+        
+        // 뒤로가기 버튼은 제거되었으므로 이벤트 리스너도 제거
+        // document.getElementById('backBtn').addEventListener('click', () => {
+        //     window.sendToPlatform('navigate_back', {});
+        //     // iframe이 아닌 경우 직접 이동
+        //     if (window.parent === window) {
+        //         window.history.back();
+        //     }
+        // });
+    </script>
+    <script src="/proto4/js/chat-platform.js"></script>
+</body>
+</html>
